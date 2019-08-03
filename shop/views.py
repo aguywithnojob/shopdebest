@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import Product,Contact,Order,orderUpdate
 from math import ceil
 import json
+
 # Create your views here.
 def index(request):
     # products = Product.objects.all()
@@ -24,6 +25,7 @@ def index(request):
         allprods.append([prod,range(1,nSlides),nSlides])
 
     params = {'allprods':allprods}
+    nav = "active"
     return render(request,'shop/index.html',params)
 
 def searchMatch(query,item):
@@ -142,3 +144,6 @@ def checkout(request):
             return render(request,'shop/checkout.html',{'mssg':mssg})
     else:
         return render(request,'shop/checkout.html')
+
+
+
