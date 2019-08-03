@@ -1,0 +1,65 @@
+{% extends 'shop/basic.html' %}
+
+{% block title %} Track Order {% endblock %}
+
+{% block body %} 
+
+<div class="container mt-4">
+    <div class="col border pb-4">
+    <h2 class="text-center">Track Your Order</h2>
+    <form action="{% url 'trackingstatus' %}" method="POST">
+            {% csrf_token %}
+           
+        <div class="form-row">
+            <div class="form-group col-md-6">
+            <label for="name">Name</label>
+                <input name="name" type="text" class="form-control" id="inputname" placeholder="Your Full Name">
+            </div>
+        
+         <div class="form-group col-md-6">
+          <label for="inputEmail4">Email</label>
+          <input name="email" type="email" class="form-control" id="inputEmail4" placeholder="Email">
+        </div>
+        </div>
+        
+            <span class="text-danger" id="mssg">{{mssg}}{{err}}</span>
+            <div class="container text-center mt-3">
+              <button type="submit" class="btn btn-primary">Track Order</button>
+            </div>
+
+        </form>
+   
+    </div>
+
+    <div class="col mt-4 mb-4 pb-5 border">
+        <h2 class="text-center pb-3">Order Details :</h2>
+
+        <div class="row" >
+            <div class="col-md-6 border-right">
+                {% for i in odr %}
+                <h4 class="text-primary"><u>{{i.1}}</u></h4>
+                <h6 class="text-warning">Quantity: {{i.0}}</h6>
+                <h6 class="text-danger"> {{i.2}}</h6>
+                {% endfor %}
+            </div>
+            <div class="col-md-6 border-left">
+                    <ul class="list-group" id="items">
+                            {% for i in info.all %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center text-success">
+                                      {{forloop.counter}}.{{i.update_desc}}
+                                        <span class="badge badge-primary badge-pill">Last Update on: {{i.timestamp}}</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+            </div>
+               
+        </div>
+    </div>
+
+
+</div>
+
+{% endblock %}
+{% block js %}
+
+{% endblock %}
