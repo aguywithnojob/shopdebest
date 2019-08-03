@@ -13,7 +13,7 @@
             </ul>
             <div id="price" class="alert alert-danger text-right" role="alert">
               <h8 class="text-secondary" style="font-size: 12px;">*COD available on selected items.</h8>
-                Total amount:
+                Total amount: MRP.
               </div>
     </div>
     </div>
@@ -21,8 +21,10 @@
     <div class="col mt-4 mb-4 pb-4 border">
         <h2 class="text-center">Step 2 - Enter Address and Other Details :</h2>
         <form action="{% url 'checkout' %}" method="POST">
-            {% csrf_token %}
+           
             <input type="hidden" name ="itemsJson" id="itemsJson">
+            <input type="hidden" name ="amount" id="amount">
+            {% csrf_token %}
                 <div class="form-row">
                         <div class="form-group col-md-12">
                                 <label for="name">Name</label>
@@ -84,7 +86,7 @@
       cart = JSON.parse(localStorage.getItem('cart'));
       
     }
-    console.log(cart); 
+   // console.log(cart); 
     // var sum = 0;
     if( $.isEmptyObject(cart)){
         mystr=`<span class="text-danger">Your cart is empty, Please add some items</span>`;
@@ -111,9 +113,11 @@ var total_price=0;
         for(item in cart){
           total_price =total_price+ (parseInt(cart[item][2].slice(4, ))*parseInt(cart[item][0]));
         }
-        tol = `<span class="">MRP. ${total_price}</span>`;
+        
+        tol = `<span id="totalprice" class=""> ${total_price}</span>`;
         $('#price').append(tol);
 $('#itemsJson').val(JSON.stringify(cart));
+$('#amount').val($('#totalprice').html());
 {% if thank %}
 alert('Your order is placed Successfully.');
 localStorage.clear();

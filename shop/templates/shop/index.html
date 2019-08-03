@@ -156,28 +156,16 @@
     
       cart['pr'+a][0]= cart['pr'+a][0]-1;
       cart['pr'+a][0] = Math.max(0,cart['pr'+a][0]);
-      if(cart['pr'+a][0]==0){
-        document.getElementById('divpr'+a).innerHTML = "<button id='pr"+a+"' class='btn btn-primary cart'>Add To Cart</button>";
-        var ky = 'pr'+a;
-        var items = localStorage["cart"];
-        for (var i =0; i< cart.length; i++) {
-        var item = JSON.parse(cart[i][0]);
-        if (item.itemId == ('pr'+a)) {
-        items.slice(i);
-        break;
-            }
-        }
-
-// Don't forget to store the result back in localStorage
-        localStorage.setItem("cart", items);
-       
-        console.log(cart);
-      }
-      else{
-        document.getElementById('valpr'+a).innerHTML = cart['pr'+a][0];
-        updateCart(cart);
-      }
       
+      //handling if cart containing zero items
+      if (cart['pr' + a][0] == 0){
+        document.getElementById('divpr' + a).innerHTML = '<button id="pr'+a+'" class="btn btn-primary cart">Add to Cart</button>';
+        delete cart['pr'+a];
+    }
+    else{
+        document.getElementById('valpr' + a).innerHTML = cart['pr' + a][0];
+    }
+    updateCart(cart);
     });
 
     $('.divpr').on("click", "button.plus", function (){
